@@ -3723,3 +3723,985 @@ test('should be return list of Contain 15 + ends with 15  & 9999', () => {
     ]);    
 });
 ////////////////////////////////////////////////
+
+/////////////////Does not contain
+
+////////////////Is equal to////////////
+////////////////And/////////////
+test('should be return all table when use And or Or', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Is equal to",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Is equal to",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+});
+test('should be return list of does not contain 15 and equal 1', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "1",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table,filterFormValues)).toMatchObject([
+        { id: "1", category: "car", name: "abd" }, 
+    ]);
+});
+test('should be return empty list ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    }; 
+    expect(filterRows(table,filterFormValues)).toMatchObject([]);
+    expect(filterRows(table,filterFormValues2)).toMatchObject([]); 
+});
+test('should be return all table without id = 15', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+
+});
+/////////////OR//////////////////
+test('should be return list of does not contain 15 + is equal 1 & 999', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "1",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues3 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "99999",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);  
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return all table when use does not contain 15 + is equal 15 ', () => {
+    const filterFormValues= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is equal to",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+});
+
+///////////////Is not equal to////////////////
+
+/////////////And/////////////////
+test('should be return all table when use And or OR', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Is not equal to",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Is not equal to",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return list of Does not contain 15 + not equal 999 + 15 + null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues3 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+    expect(filterRows(table, filterFormValues3)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return list of Does not contain 15 + not equal 1', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "1",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);     
+});
+/////////////OR/////////////////
+test('should be return list of Does not contain 15 + not equal 999 + 1 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "999",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "1",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return list of Does not contain 15 + not equal 15 + null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Is not equal to",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+
+//////////////Starts with///////////////
+
+///////////////And//////////////
+test('should be return all table when use And or OR', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Starts with",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Starts with",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return list of does not contain 15 + starts with 1 & 8 & 15 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "8",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues3= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "1",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table,filterFormValues)).toMatchObject([]);
+    expect(filterRows(table,filterFormValues2)).toMatchObject([]); 
+    expect(filterRows(table, filterFormValues3)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+    ]);
+});
+test('should be return list of does not cotain 15 + starts with null ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);  
+});
+
+//////////////OR////////////////
+test('should be return list of does not contain + start with 1 & 15 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "1",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);     
+});
+test('should be return list of does not contain + starts with 8 & null ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "8",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Starts with",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+});
+
+/////////////////contains/////////////////
+
+///////////And////////////////////
+test('should be return all table when use And or Or', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Contains",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Contains",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return empty when use does not contain 15 + contain 15 & contain 999', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "999999",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table,filterFormValues)).toMatchObject([]);
+    expect(filterRows(table,filterFormValues2)).toMatchObject([]);    
+});
+test('should be return list of does not contain 15 + contain 1', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "1",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+    ]);  
+});
+test('should be return list of does not contain 15 + contain null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "",
+        compareValue: "And",
+        column: "id",
+    }; 
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+});
+
+/////////////OR////////////////
+test('should be return list of does not contain 15 + contain 15 & 9999 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "9999",
+        compareValue: "Or",
+        column: "id",
+    }; 
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);     
+});
+test('should be return list of does not contain 15 + contain 1 & 15  ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "1",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Contains",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);  
+});
+
+/////////////////Does not contain///////////
+
+////////////And//////////////////
+test('should be return all table when use And or Or', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Does not contain",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Does not contain",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);    
+});
+test('should be return list of dose not contain 15+ does not contain 1', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "1",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+});
+test('should be return list of does not contain 15 + does not contain 15 & 999 & null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "9999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    }; 
+    const filterFormValues3 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By:"Does not contain",
+        filter2Value: "null",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues3)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+});
+
+///////////OR///////////
+test('should be return list of does not contain 15 + does not contain 15 & 999 & null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "1",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    }; 
+    const filterFormValues3 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By:"Does not contain",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues3)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+});
+test('should be return list of does not contain 15 + does not contain 9999', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Does not contain",
+        filter2Value: "999",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+});
+
+/////////////////Ends with///////////////
+
+/////////////And////////////////////
+test('should be return all table', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Ends with",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2= {
+        filter1By: "Does not contain",
+        filter1Value: "",
+        filter2By: "Ends with",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+});
+test('should be return list of does not contain 15 + ends with 15 & 9999 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "999",
+        compareValue: "And",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "15",
+        compareValue: "And",
+        column: "id",
+    }; 
+    expect(filterRows(table,filterFormValues)).toMatchObject([]);
+    expect(filterRows(table,filterFormValues2)).toMatchObject([]); 
+});
+test('should be return list of does not contain 15 + ends with 7 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "7",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+
+    ]);   
+});
+test('should be return list of does not contain 15 + ends with null', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "",
+        compareValue: "And",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);   
+});
+//////////OR/////////////////////////
+test('should be return list of does not contain 15 + ends with 7 & null & 99999 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues2 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "9999",
+        compareValue: "Or",
+        column: "id",
+    };
+    const filterFormValues3 = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "7",
+        compareValue: "Or",
+        column: "id",
+    };
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+    expect(filterRows(table, filterFormValues2)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);     
+    expect(filterRows(table, filterFormValues3)).toMatchObject([
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]);        
+});
+test('should be return list of deos not contain 15 + ends with 15 ', () => {
+    const filterFormValues = {
+        filter1By: "Does not contain",
+        filter1Value: "15",
+        filter2By: "Ends with",
+        filter2Value: "15",
+        compareValue: "Or",
+        column: "id",
+    }; 
+    expect(filterRows(table, filterFormValues)).toMatchObject([
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "f", name: "asdasd" },
+        { id: "15", category: "f", name: "asdasd" },
+        { id: "17", category: "van", name: "omar" },
+        { id: "1", category: "car", name: "abd" },
+        { id: "5", category: "watch", name: "mamoun" },
+        { id: "9", category: "ba", name: "nazal" }
+    ]); 
+});
+////////////////////////////////////////
