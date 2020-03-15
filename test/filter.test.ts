@@ -1,4 +1,4 @@
-const { filterRows } = require('../filter');
+const { filterRows } = require('../refactor');
 
 const table = [
     { id: "15", category: "f", name: "asdasd" },
@@ -116,7 +116,7 @@ test('should be return list of list of is equal to 15 + is equal 15 & null & 2 (
         filter1Value: "15",
         filter2By: "Is equal to",
         filter2Value: "15",
-        compareValue: "OR",
+        compareValue: "Or",
         column: "id",
     };
     const filterFormValues2 = {
@@ -124,7 +124,7 @@ test('should be return list of list of is equal to 15 + is equal 15 & null & 2 (
         filter1Value: "15",
         filter2By: "Is equal to",
         filter2Value: "",
-        compareValue: "OR",
+        compareValue: "Or",
         column: "id",
     };
     const filterFormValues3 = {
@@ -132,7 +132,7 @@ test('should be return list of list of is equal to 15 + is equal 15 & null & 2 (
         filter1Value: "15",
         filter2By: "Is equal to",
         filter2Value: "2",
-        compareValue: "OR",
+        compareValue: "Or",
         column: "id",
     };
     expect(filterRows(table, filterFormValues)).toMatchObject([
@@ -154,7 +154,7 @@ test('should be return list of is equal to 15 + is equal 1 & 17 (OR)', () => {
         filter1Value: "15",
         filter2By: "Is equal to",
         filter2Value: "1",
-        compareValue: "OR",
+        compareValue: "Or",
         column: "id",
     };
     const filterFormValues2 = {
@@ -162,7 +162,7 @@ test('should be return list of is equal to 15 + is equal 1 & 17 (OR)', () => {
         filter1Value: "15",
         filter2By: "Is equal to",
         filter2Value: "17",
-        compareValue: "OR",
+        compareValue: "Or",
         column: "id",
     };
     expect(filterRows(table, filterFormValues)).toMatchObject([

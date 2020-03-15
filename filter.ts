@@ -22,7 +22,6 @@ export interface Column {
   category: string;
   name: string;
 }
-
  export const filterRows = (rows: Column[], filterValues: FilterFormValues): Column[] => {
   let rowsToFilter = rows;
   const column: keyof Column = filterValues.column;
@@ -37,15 +36,15 @@ export interface Column {
         if (filterValues.compareValue === "And") {
           rowsToFilter = rowsToFilter.filter(
             row =>  //{id:"15",catagory:"asd",name:"asds"}
-              row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() &&
+              row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() && //opreation 1
               (filterValues.filter2Value  //false  or true
-                ? row[column].toLowerCase() ===
+                ? row[column].toLowerCase() ===  //opreation 2
                   filterValues.filter2Value.toLowerCase() // return true or false
                 : true) 
           );
         } else {
           rowsToFilter = rowsToFilter.filter(
-            row =>
+            row =>//{id:"dada",name:"asds"}
               row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() ||
               (filterValues.filter2Value
                 ? row[column].toLowerCase() ===
@@ -117,15 +116,15 @@ export interface Column {
                 : false)
           );
         }
-      } else if (filterValues.filter2By === "Does not contain") {
-        if (filterValues.compareValue === "And") {
+      } else if (filterValues.filter2By === "Does not contain") { // one
+        if (filterValues.compareValue === "And") {  //two
           rowsToFilter = rowsToFilter.filter(
             row =>
-              row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() &&
+              row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() &&   // three and opreator
               (filterValues.filter2Value
                 ? !row[column]
                     .toLowerCase()
-                    .includes(filterValues.filter2Value.toLowerCase())
+                    .includes(filterValues.filter2Value.toLowerCase())    // four opreation 
                 : true)
           );
         } else {

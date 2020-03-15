@@ -11,9 +11,9 @@ exports.filterRows = function (rows, filterValues) {
             if (filterValues.filter2By === "Is equal to") {
                 if (filterValues.compareValue === "And") {
                     rowsToFilter = rowsToFilter.filter(function (row) {
-                        return row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() &&
+                        return row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() && //opreation 1
                             (filterValues.filter2Value //false  or true
-                                ? row[column].toLowerCase() ===
+                                ? row[column].toLowerCase() === //opreation 2
                                     filterValues.filter2Value.toLowerCase() // return true or false
                                 : true);
                     });
@@ -92,14 +92,14 @@ exports.filterRows = function (rows, filterValues) {
                     });
                 }
             }
-            else if (filterValues.filter2By === "Does not contain") {
-                if (filterValues.compareValue === "And") {
+            else if (filterValues.filter2By === "Does not contain") { // one
+                if (filterValues.compareValue === "And") { //two
                     rowsToFilter = rowsToFilter.filter(function (row) {
-                        return row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() &&
+                        return row[column].toLowerCase() === filterValues.filter1Value.toLowerCase() && // three and opreator
                             (filterValues.filter2Value
                                 ? !row[column]
                                     .toLowerCase()
-                                    .includes(filterValues.filter2Value.toLowerCase())
+                                    .includes(filterValues.filter2Value.toLowerCase()) // four opreation 
                                 : true);
                     });
                 }
