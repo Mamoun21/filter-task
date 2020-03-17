@@ -89,8 +89,8 @@ export type FilterFormValues = {
     column?: (keyof Column)| string;
 };
 export interface Column {
-    id: string;
-    category: string;
+    id: string | object;
+    category: string | object;
     name: string | Object;
 }
 function getInnervalueObject(obj: Column, column: string) {
