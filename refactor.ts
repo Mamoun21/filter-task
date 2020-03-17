@@ -5,7 +5,7 @@ function isNotEqualTo(value: string, column: string) {
     return column !== value;
 }
 function startsWith(value: string, column: string) {
-    return column.startsWith(value)
+    return column.toString().startsWith(value)
 }
 function Contains(value: string, column: string) {
     return column.includes(value);
@@ -86,22 +86,31 @@ export type FilterFormValues = {
     filter2By: FilterOptions;
     filter2Value: string;
     compareValue: CompareOptions;
-    column?: keyof Column;
+    column?: (keyof Column)| string;
 };
-
 export interface Column {
     id: string;
     category: string;
-    name: string;
+    name: string | Object;
 }
+function getInnervalueObject(obj: Column, column: string) {
+    return eval(
+        'obj'+
+        column
+          .split(".")
+          .map(value => `['${value}']`)
+          .join("")
+    );
+  }
 export const filterRows = (rows: Column[], filterValues: FilterFormValues): Column[] => {
-    const column: keyof Column = filterValues.column;
+    const column:(keyof Column )|string = filterValues.column;
     if (!filterValues.filter1Value) {
         return rows;
     }
     rows = rows.filter(
         row =>
-            func3(row[column].toLowerCase(), filterValues));
+            func3(getInnervalueObject(row, column), filterValues)
+    );
     return rows;
 }
 module.exports = { filterRows }

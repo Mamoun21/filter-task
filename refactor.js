@@ -7,7 +7,7 @@ function isNotEqualTo(value, column) {
     return column !== value;
 }
 function startsWith(value, column) {
-    return column.startsWith(value);
+    return column.toString().startsWith(value);
 }
 function Contains(value, column) {
     return column.includes(value);
@@ -55,13 +55,20 @@ function func2(column, value, LogicOpertion, opertion) {
 function func3(column, filterValues) {
     return (LogicOpertion[filterValues.compareValue](func1(column, filterValues.filter1Value.toLowerCase(), Opertions[filterValues.filter1By]), func2(column, filterValues.filter2Value.toLowerCase(), filterValues.compareValue, Opertions[filterValues.filter2By])));
 }
+function getInnervalueObject(obj, column) {
+    return eval('obj' +
+        column
+            .split(".")
+            .map(function (value) { return "['" + value + "']"; })
+            .join(""));
+}
 exports.filterRows = function (rows, filterValues) {
     var column = filterValues.column;
     if (!filterValues.filter1Value) {
         return rows;
     }
     rows = rows.filter(function (row) {
-        return func3(row[column].toLowerCase(), filterValues);
+        return func3(getInnervalueObject(row, column), filterValues);
     });
     return rows;
 };
